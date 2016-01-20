@@ -8,8 +8,8 @@ var config = {
 };
 
 var properties = [{
-  value: "project_topic",
-  label: "Topic",
+  value: "project_name",
+  label: "Project Name",
   table: {
     visible: false,
     sortable: true
@@ -34,8 +34,8 @@ var properties = [{
     values: []
   }
 }, {
-  value: "congress_park_inventory_zone",
-  label: "Inventory Zone",
+  value: "agency_partner",
+  label: "Agency Partner",
   table: {
     visible: true,
     sortable: true
@@ -49,8 +49,8 @@ var properties = [{
     values: []
   }
 }, {
-  value: "2012_inventory_number",
-  label: "Inventory Number",
+  value: "project_topic",
+  label: "Topic",
   table: {
     visible: true,
     sortable: true
@@ -59,8 +59,8 @@ var properties = [{
     type: "integer"
   }
 }, {
-  value: "species_sim",
-  label: "Species",
+  value: "agency_sponsor",
+  label: "Agency Sponsor",
   table: {
     visible: true,
     sortable: true
@@ -68,61 +68,6 @@ var properties = [{
   filter: {
     type: "string"
   }
-}, {
-  value: "circumference_2012_inches_at_breast_height_",
-  label: "Circumference (inches)",
-  table: {
-    visible: true,
-    sortable: true
-  },
-  filter: {
-    type: "integer"
-  }
-}, {
-  value: "dbh_2012_inches_diameter_at_breast_height_46",
-  label: "DBH (inches)",
-  table: {
-    visible: true,
-    sortable: true
-  },
-  filter: {
-    type: "integer"
-  }
-}, {
-  value: "plaque",
-  label: "Plaque",
-  table: {
-    visible: true,
-    sortable: true
-  },
-  filter: {
-    type: "string",
-    input: "radio",
-    operators: ["equal"],
-    values: {
-      "yes": "Yes",
-      "no": "No"
-    }
-  }
-}, {
-  value: "notes_other_information",
-  label: "Notes",
-  table: {
-    visible: false,
-    sortable: true
-  },
-  filter: {
-    type: "string"
-  }
-}, {
-  value: "photos_url",
-  label: "Photos",
-  table: {
-    visible: true,
-    sortable: true,
-    formatter: urlFormatter
-  },
-  filter: false
 }];
 
 function drawCharts() {
@@ -146,10 +91,10 @@ function drawCharts() {
     });
   });
 
-  // Zones
+  // Agencies
   $(function() {
     var result = alasql(
-      "SELECT congress_park_inventory_zone AS label, COUNT(*) AS total FROM ? GROUP BY congress_park_inventory_zone", [
+      "SELECT agency_sponsor AS label, COUNT(*) AS total FROM ? GROUP BY agency_sponsor", [
         features
       ]);
     var columns = $.map(result, function(zone) {
@@ -166,52 +111,10 @@ function drawCharts() {
     });
   });
 
-  // Size
-  $(function() {
-    var sizes = [];
-    var regeneration = alasql(
-      "SELECT 'Regeneration (< 3\")' AS category, COUNT(*) AS total FROM ? WHERE CAST(dbh_2012_inches_diameter_at_breast_height_46 as INT) < 3", [
-        features
-      ]);
-    var sapling = alasql(
-      "SELECT 'Sapling/poles (1-9\")' AS category, COUNT(*) AS total FROM ? WHERE CAST(dbh_2012_inches_diameter_at_breast_height_46 as INT) BETWEEN 1 AND 9", [
-        features
-      ]);
-    var small = alasql(
-      "SELECT 'Small trees (10-14\")' AS category, COUNT(*) AS total FROM ? WHERE CAST(dbh_2012_inches_diameter_at_breast_height_46 as INT) BETWEEN 10 AND 14", [
-        features
-      ]);
-    var medium = alasql(
-      "SELECT 'Medium trees (15-19\")' AS category, COUNT(*) AS total FROM ? WHERE CAST(dbh_2012_inches_diameter_at_breast_height_46 as INT) BETWEEN 15 AND 19", [
-        features
-      ]);
-    var large = alasql(
-      "SELECT 'Large trees (20-29\")' AS category, COUNT(*) AS total FROM ? WHERE CAST(dbh_2012_inches_diameter_at_breast_height_46 as INT) BETWEEN 20 AND 29", [
-        features
-      ]);
-    var giant = alasql(
-      "SELECT 'Giant trees (> 29\")' AS category, COUNT(*) AS total FROM ? WHERE CAST(dbh_2012_inches_diameter_at_breast_height_46 as INT) > 29", [
-        features
-      ]);
-    sizes.push(regeneration, sapling, small, medium, large, giant);
-    var columns = $.map(sizes, function(size) {
-      return [
-        [size[0].category, size[0].total]
-      ];
-    });
-    var chart = c3.generate({
-      bindto: "#size-chart",
-      data: {
-        type: "pie",
-        columns: columns
-      }
-    });
-  });
-
   // Species
   $(function() {
     var result = alasql(
-      "SELECT species_sim AS label, COUNT(*) AS total FROM ? GROUP BY species_sim ORDER BY label ASC", [
+      "SELECT agency_partner AS label, COUNT(*) AS total FROM ? GROUP BY agency_partner ORDER BY label ASC", [
         features
       ]);
     var chart = c3.generate({
@@ -334,22 +237,26 @@ function buildConfig() {
 }
 
 // Basemap Layers
-var mapquestOSM = L.tileLayer(
-  "http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png", {
+var humanitarianOSM = L.tileLayer(
+  "http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
     maxZoom: 19,
     subdomains: ["otile1", "otile2", "otile3", "otile4"],
-    attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a> <img src="https://hotosm.org/sites/default/themes/hot/logo.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
   });
 
-var mapquestHYB = L.layerGroup([L.tileLayer(
-  "http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
+var mapboxTerrian = L.tileLayer(
+  "http://{s}.tiles.mapbox.com/v3/energy.map-ayrdk7iy/{z}/{x}/{y}.png", {
     maxZoom: 18,
     subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
-  }), L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/hyb/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-  attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
-})]);
+    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a> <img src="https://licensebuttons.net/l/by/3.0/88x31.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+  });
+
+var stamenToner = L.tileLayer(
+  "http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
+    attribution: 'Labels courtesy of <a href="http://maps.stamen.com/" target="_blank">Stamen Design</a> <img src="https://licensebuttons.net/l/by/3.0/88x31.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-3.0.'
+  });
 
 var highlightLayer = L.geoJson(null, {
   pointToLayer: function(feature, latlng) {
@@ -467,8 +374,9 @@ if (document.body.clientWidth <= 767) {
   isCollapsed = false;
 }
 var baseLayers = {
-  "Street Map": mapquestOSM,
-  "Aerial Imagery": mapquestHYB
+  "Humanitarian OpenStreetMap": humanitarianOSM,
+  "Mapbox Terrian": mapboxTerrian,
+  "Stamen Toner": stamenToner
 };
 var overlayLayers = {
   "<span id='layer-name'>GeoJSON Layer</span>": featureLayer
