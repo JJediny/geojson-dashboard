@@ -342,7 +342,7 @@ $.getJSON(config.geojson, function(data) {
 });
 
 var map = L.map("map", {
-  layers: [mapquestOSM, featureLayer, highlightLayer]
+  layers: [humanitarianOSM, featureLayer, highlightLayer]
 }).fitWorld();
 
 // ESRI geocoder
