@@ -240,22 +240,22 @@ function buildConfig() {
 var humanitarianOSM = L.tileLayer(
   "http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    subdomains: ["otile1", "otile2", "otile3", "otile4"],
-    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a> <img src="https://hotosm.org/sites/default/themes/hot/logo.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+    subdomains: ["a", "b", "c"],
+    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a>. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
   });
 
 var mapboxTerrian = L.tileLayer(
   "http://{s}.tiles.mapbox.com/v3/energy.map-ayrdk7iy/{z}/{x}/{y}.png", {
     maxZoom: 18,
-    subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a> <img src="https://licensebuttons.net/l/by/3.0/88x31.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+    subdomains: ["a", "b", "c"],
+    attribution: 'Tiles courtesy of <a href="http://www.mapbox.com" target="_blank">Mapbox Team</a>. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
   });
 
 var stamenToner = L.tileLayer(
   "http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-    attribution: 'Labels courtesy of <a href="http://maps.stamen.com/" target="_blank">Stamen Design</a> <img src="https://licensebuttons.net/l/by/3.0/88x31.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-3.0.'
+    subdomains: ["a", "b", "c"],
+    attribution: 'Labels courtesy of <a href="http://maps.stamen.com/" target="_blank">Stamen Design</a>. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-3.0.'
   });
 
 var highlightLayer = L.geoJson(null, {
