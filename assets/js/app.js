@@ -1,5 +1,5 @@
 var config = {
-  geojson: "/assests/data/FederalCitizenScienceCrowdsourcing.geojson",
+  geojson: "/assets/data/FederalCitizenScienceCrowdsourcing.geojson",
   title: "Federal Citizen Science and Crowdsourcing Projects",
   layerName: "Projects",
   hoverProperty: "project_name",
