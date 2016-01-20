@@ -247,7 +247,7 @@ var humanitarianOSM = L.tileLayer(
 var mapboxTerrian = L.tileLayer(
   "http://{s}.tiles.mapbox.com/v3/energy.map-ayrdk7iy/{z}/{x}/{y}.png", {
     maxZoom: 18,
-    subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
+    subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
     attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a> <img src="https://licensebuttons.net/l/by/3.0/88x31.png">. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
   });
 
