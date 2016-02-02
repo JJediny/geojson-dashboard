@@ -11,7 +11,7 @@ var properties = [{
   value: "project_name",
   label: "Project Name",
   table: {
-    visible: false,
+    visible: true,
     sortable: true
   },
   filter: {
@@ -34,6 +34,16 @@ var properties = [{
     values: []
   }
 }, {
+  value: "agency_sponsor",
+  label: "Federal Sponsor(s)",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "string"
+  }
+}, {
   value: "agency_partner",
   label: "Agency Partner",
   table: {
@@ -41,16 +51,11 @@ var properties = [{
     sortable: true
   },
   filter: {
-    type: "string",
-    input: "checkbox",
-    vertical: true,
-    multiple: true,
-    operators: ["in", "not_in", "equal", "not_equal"],
-    values: []
+    type: "string"
   }
 }, {
   value: "project_topic",
-  label: "Topic",
+  label: "Topic(s)",
   table: {
     visible: true,
     sortable: true
@@ -59,14 +64,24 @@ var properties = [{
     type: "integer"
   }
 }, {
-  value: "agency_sponsor",
-  label: "Agency Sponsor",
+  value: "project_description",
+  label: "Description",
   table: {
     visible: true,
     sortable: true
   },
   filter: {
-    type: "string"
+    type: "integer"
+  }
+}, {
+  value: "project_url",
+  label: "URL",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "integer"
   }
 }];
 
@@ -237,18 +252,18 @@ function buildConfig() {
 }
 
 // Basemap Layers
-var humanitarianOSM = L.tileLayer(
-  "http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    subdomains: ["a", "b", "c"],
-    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a>. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
-  });
-
 var mapboxTerrian = L.tileLayer(
   "http://{s}.tiles.mapbox.com/v3/energy.map-ayrdk7iy/{z}/{x}/{y}.png", {
     maxZoom: 18,
     subdomains: ["a", "b", "c"],
     attribution: 'Tiles courtesy of <a href="http://www.mapbox.com" target="_blank">Mapbox Team</a>. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+  });
+
+var humanitarianOSM = L.tileLayer(
+  "http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    subdomains: ["a", "b", "c"],
+    attribution: 'Tiles courtesy of <a href="http://www.hotosm.org" target="_blank">Humanitarian OpenStreetMap Team</a>. Map data (c) <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
   });
 
 var stamenToner = L.tileLayer(
@@ -299,12 +314,12 @@ var featureLayer = L.geoJson(null, {
       markerColor = "#FF0000";
     }
     return L.circleMarker(latlng, {
-      radius: 4,
-      weight: 2,
+      radius: 3,
+      weight: 1,
       fillColor: markerColor,
       color: markerColor,
       opacity: 1,
-      fillOpacity: 1
+      fillOpacity: 0.5
     });
   },
   onEachFeature: function(feature, layer) {
@@ -342,7 +357,7 @@ $.getJSON(config.geojson, function(data) {
 });
 
 var map = L.map("map", {
-  layers: [humanitarianOSM, featureLayer, highlightLayer]
+  layers: [mapboxTerrian, featureLayer, highlightLayer]
 }).fitWorld();
 
 // ESRI geocoder
