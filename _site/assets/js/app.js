@@ -77,6 +77,16 @@ var properties = [{
   value: "project_url",
   label: "URL",
   table: {
+    visible: false,
+    sortable: true
+  },
+  filter: {
+    type: "integer"
+  }
+}, {
+  value: "participation_tasks",
+  label: "Participation",
+  table: {
     visible: true,
     sortable: true
   },
