@@ -11,7 +11,7 @@ var properties = [{
   value: "project_name",
   label: "Project Name",
   table: {
-    visible: true,
+    visible: false,
     sortable: true
   },
   filter: {
@@ -60,7 +60,7 @@ var properties = [{
   }
 }, {
   value: "agency_sponsor",
-  label: "Agency Sponsor(s)",
+  label: "Agency Sponsor",
   table: {
     visible: true,
     sortable: true
