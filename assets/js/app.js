@@ -1,5 +1,5 @@
 var config = {
-  geojson: "https://gist.githubusercontent.com/JJediny/b238fc15e3b31a2e3432/raw/3d73dbd7d4c950c8e85fdb7485567e84eca90772/CitizenScienceandCrowdsourcing_WWilson.geojson",
+  geojson: "https://inventory.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT%20*%20FROM%20database_federal_citizen_science%20",
   title: "Federal Citizen Science and Crowdsourcing Projects",
   layerName: "Projects",
   hoverProperty: "project_name",
@@ -322,12 +322,13 @@ var featureLayer = L.geoJson(null, {
       markerColor = feature.properties["marker-color"];
     } else {
       markerColor = "#FF0000";
+      markerBorder = "#000000"
     }
     return L.circleMarker(latlng, {
-      radius: 3,
+      radius: 6,
       weight: 1,
       fillColor: markerColor,
-      color: markerColor,
+      color: markerBorder,
       opacity: 1,
       fillOpacity: 0.5
     });
