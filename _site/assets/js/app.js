@@ -1,5 +1,5 @@
 var config = {
-  geojson: "https://inventory.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT%20*%20FROM%20database_federal_citizen_science%20",
+  geojson: "https://gist.github.com/JJediny/b238fc15e3b31a2e3432/raw/f53246e8cf4743f7d459d6298a1dab198b20eb24/CitizenScienceandCrowdsourcing_WWilson.geojson",
   title: "Federal Citizen Science and Crowdsourcing Projects",
   layerName: "Projects",
   hoverProperty: "project_name",
