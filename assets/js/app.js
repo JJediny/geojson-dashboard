@@ -1,5 +1,5 @@
 var config = {
-  geojson: "https://gist.github.com/JJediny/b238fc15e3b31a2e3432/raw/f53246e8cf4743f7d459d6298a1dab198b20eb24/CitizenScienceandCrowdsourcing_WWilson.geojson",
+  geojson: "http://jjediny.github.io/geojson-dashboard/assets/data.geojson",
   title: "Federal Citizen Science and Crowdsourcing Projects",
   layerName: "Projects",
   hoverProperty: "project_name",
